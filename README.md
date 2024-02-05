@@ -1,6 +1,6 @@
 # Example of using Next and Express with an SQLite database
 
-This is a brief description of the project.
+This project exemplifies the synergy of client-side and server-side processing using Next.js. It incorporates Node.js, Express.js, and an SQLite database for efficient data management. This concise demonstration showcases the integration of these technologies, offering practical insights for building dynamic web applications with a modern tech stack.
 
 ## Table of Contents
 
