@@ -1,4 +1,4 @@
-# Example
+# Example of using Next and Express with an SQLite database
 
 This is a brief description of the project.
 
@@ -21,8 +21,8 @@ Make sure you have the following installed:
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-project.git
-cd your-project
+git clone https://github.com/timwhite06/my-next-express-app.git
+cd my-next-express-app
 ```
 ## Install Dependencies
 Install frontent and backend dependencies.
@@ -58,5 +58,3 @@ npm run dev
 - frontend
   - src
     - app (Next.js routing area)
-
-# my-next-express-app
