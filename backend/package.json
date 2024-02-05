@@ -1,0 +1,17 @@
+{
+    "name": "my-next-express-project-backend",
+    "version": "1.0.0",
+    "main": "server.js",
+    "license": "MIT",
+    "scripts": {
+        "start": "node server.js",
+        "test": "jest"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.1",
+        "express": "^4.18.2",
+        "mysql2": "^2.3.3",
+        "sqlite3": "^5.1.7"
+    }
+}
