@@ -1,0 +1,72 @@
+name: Node.js Web Application CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set status - Pending
+        run: |
+          gh api repos/:owner/:repo/statuses/$GITHUB_SHA \
+            -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -f state=pending -f description="The CI build is in progress" -f context=CI
+
+      - name: Debug
+        run: |
+          ls -la
+          cd web-application
+          npm install
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Build
+        run: |
+          cd web-application
+          npm run build --if-present
+
+      # Comment out until the .yml actually runs the tests idk what wrong
+      # - name: Run Tests
+      #   run: |
+      #     cd web-application
+      #     npm test
+
+      - name: Set status - Success
+        if: success()
+        run: |
+          gh api repos/:owner/:repo/statuses/$GITHUB_SHA \
+            -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -f state=success -f description="The CI build passed" -f context=CI
+
+      - name: Set status - Failure
+        if: failure()
+        run: |
+          gh api repos/:owner/:repo/statuses/$GITHUB_SHA \
+            -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -f state=failure -f description="The CI build failed" -f context=CI
